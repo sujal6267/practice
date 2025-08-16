@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futuristic Portfolio</title>
+<style>
+:root {
+  --primary: #00ffe1;
+  --secondary: #ff00ff;
+  --bg: #0a0a0a;
+  --text: #f0f0f0;
+  --card-bg: rgba(255,255,255,0.05);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+/* Default dark theme */
+body {
+  --bg: #0a0a0a;
+  --text: #f0f0f0;
+  --card-bg: rgba(255,255,255,0.05);
+  --nav-bg: rgba(0,0,0,0.5);
+  --header-bg: linear-gradient(135deg,#0a0a0a,#111111);
+}
+
+/* Light theme */
+body.light {
+  --bg: #f0f0f0;
+  --text: #0a0a0a;
+  --card-bg: rgba(0,0,0,0.05);
+  --nav-bg: rgba(255,255,255,0.9);
+  --header-bg: linear-gradient(135deg,#ffffff,#e0e0e0);
+}
+
+/* Navbar */
+nav {
+  position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center;
+  padding:15px 20px; background: var(--nav-bg); backdrop-filter:blur(10px); z-index:1000;
+}
+nav h2 { color:var(--primary); }
+nav ul { display:flex; list-style:none; flex-wrap:wrap; transition:0.3s; }
+nav ul li { margin-left:15px; }
+nav ul li a { text-decoration:none; color:var(--text); padding:5px 10px; border-radius:5px; transition:0.3s; }
+nav ul li a.active, nav ul li a:hover { background:var(--primary); color:#000; }
+#theme-toggle { cursor:pointer; background:none; border:none; font-size:20px; color:var(--text); }
+/* Hamburger */
+.hamburger { display:none; flex-direction:column; cursor:pointer; }
+.hamburger div { width:25px; height:3px; background:var(--text); margin:4px; transition:0.3s; }
+/* Hero */
+header {
+  height:100vh; display:flex; justify-content:center; align-items:center; text-align:center;
+  background: var(--header-bg); position:relative; overflow:hidden; flex-direction:column; padding:20px;
+}
+header::before{
+  content:''; position:absolute; width:200%; height:200%; top:-50%; left:-50%;
+  background:radial-gradient(circle,#00ffe1,#ff00ff); opacity:0.05; animation: rotate 20s linear infinite;
+}
+@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+header h1 { font-size:2.5rem; margin-bottom:15px; color:var(--primary); }
+header p { font-size:1.2rem; letter-spacing:1px; }
+header .typing { color:var(--secondary); font-weight:bold; }
+/* Sections */
+section { padding:80px 20px; max-width:1200px; margin:auto; opacity:0; transform:translateY(40px); transition:0.7s; }
+section.show { opacity:1; transform:translateY(0); }
+/* Cards */
+.card { background: var(--card-bg); padding:25px; border-radius:20px; box-shadow:0 8px 30px rgba(0,0,0,0.3); margin:20px 0; transition:0.3s; }
+.card:hover { transform:translateY(-8px); box-shadow:0 12px 40px rgba(0,0,0,0.6); }
+/* About */
+#about { display:flex; flex-wrap:wrap; gap:30px; align-items:center; justify-content:center; }
+#about img { width:250px; max-width:90%; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+/* Skills */
+#skills { text-align:center; }
+.skill-bar { margin:15px 0; position:relative; height:25px; width:90%; max-width:400px; background: rgba(255,255,255,0.1); border-radius:15px; margin-left:auto; margin-right:auto; }
+.skill-bar span { display:block; height:100%; width:0%; background:var(--primary); border-radius:15px; line-height:25px; color:#000; font-weight:bold; text-align:right; padding-right:10px; transition: width 1.5s; }
+/* Projects */
+#projects .project-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+.project-card img { width:100%; border-radius:15px; }
+.project-card h3 { color:var(--primary); margin-top:10px; text-align:center; }
+/* Contact */
+#contact { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; text-align:center; }
+.contact-card { width:200px; padding:20px; border-radius:20px; background: var(--card-bg); box-shadow:0 8px 30px rgba(0,0,0,0.3); transition:0.3s; }
+.contact-card:hover { transform:translateY(-8px); box-shadow:0 12px 40px rgba(0,0,0,0.6); }
+/* Footer */
+footer { text-align:center; padding:25px 0; color:var(--primary); }
+/* Responsive */
+@media(max-width:768px){
+  nav ul { display:none; flex-direction:column; width:100%; background:rgba(0,0,0,0.95); position:absolute; top:60px; left:0; }
+  nav ul.show { display:flex; }
+  nav ul li { margin:15px 0; text-align:center; }
+  .hamburger { display:flex; }
+}
+/* Add this at the end of your <style> block */
+
+/* Light theme overrides */
+body.light {
+  --bg: #f0f0f0;
+  --text: #0a0a0a;
+  --card-bg: rgba(0,0,0,0.05);
+}
+
+/* Dark theme overrides (default) */
+body.dark {
+  --bg: #0a0a0a;
+  --text: #f0f0f0;
+  --card-bg: rgba(255,255,255,0.05);
+}
+
+/* Apply the variables */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.card, .contact-card {
+  background: var(--card-bg);
+}
+nav, nav ul.show {
+  background: rgba(0,0,0,0.5); /* optionally adjust for dark/light */
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+<h2>CodeCampNepal</h2>
+<div class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+  <div></div><div></div><div></div>
+</div>
+<ul id="nav-links">
+<li><a href="#about" class="active">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><button id="theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+</ul>
+</nav>
+
+<!-- Hero -->
+<header>
+<h1>I'm CodeCampNepal</h1>
+<p>I am a <span class="typing"></span></p>
+</header>
+
+<!-- About -->
+<section id="about" class="section">
+<img src="https://uploads.onecompiler.io/43trzrk89/43trxnw38/WhatsApp%20Image%202025-08-13%20at%2011.49.49_f39825b3.jpg" alt="Profile photo of John Doe">
+<div class="card">
+<h2>About Me</h2>
+<p>I'm a futuristic web developer passionate about building interactive, modern, and responsive web applications with neon vibes and smooth animations.</p>
+</div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section">
+<h2>Skills</h2>
+<div class="skill-bar"><span data-width="90%">HTML</span></div>
+<div class="skill-bar"><span data-width="85%">CSS</span></div>
+<div class="skill-bar"><span data-width="80%">JavaScript</span></div>
+<div class="skill-bar"><span data-width="70%">React</span></div>
+<div class="skill-bar"><span data-width="60%">Node.js</span></div>
+</section>
+
+<!-- Projects --><!--use 300x200 -->
+<section id="projects" class="section">
+<h2>Projects</h2>
+<div class="project-grid">
+<div class="project-card card">
+<img src="https://uploads.onecompiler.io/43trzrk89/43trxnw38/WhatsApp%20Image%202025-08-13%20at%2011.49.49_f39825b3.jpg" alt="Screenshot of Project One">
+<h3>Project One</h3>
+</div>
+<div class="project-card card">
+<img src="https://uploads.onecompiler.io/43trzrk89/43trxnw38/WhatsApp%20Image%202025-08-13%20at%2011.49.49_f39825b3.jpg" alt="Screenshot of Project Two">
+<h3>Project Two</h3>
+</div>
+<div class="project-card card">
+<img src="https://uploads.onecompiler.io/43trzrk89/43trxnw38/WhatsApp%20Image%202025-08-13%20at%2011.49.49_f39825b3.jpg" alt="Screenshot of Project Three">
+<h3>Project Three</h3>
+</div>
+</div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section">
+<div class="contact-card">
+<h3>Email</h3>
+<p><a href="mailto:john@example.com">john@example.com</a></p>
+</div>
+<div class="contact-card">
+<h3>LinkedIn</h3>
+<p><a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener">linkedin.com/in/johndoe</a></p>
+</div>
+<div class="contact-card">
+<h3>GitHub</h3>
+<p><a href="https://github.com/johndoe" target="_blank" rel="noopener">github.com/johndoe</a></p>
+</div>
+</section>
+
+<!-- Footer -->
+<footer>© 2025 John Doe. All rights reserved.</footer>
+
+<script>
+// Smooth scroll + active link + fade-in
+const navLinks = document.querySelectorAll('nav ul li a');
+const sections = document.querySelectorAll('.section');
+function animateSections() {
+  let current = '';
+  sections.forEach(sec => {
+    if (pageYOffset >= sec.offsetTop - 100) current = sec.getAttribute('id');
+    if (sec.getBoundingClientRect().top < window.innerHeight - 100) sec.classList.add('show');
+  });
+  navLinks.forEach(link => { link.classList.remove('active'); if(link.getAttribute('href') == `#${current}`) link.classList.add('active'); });
+  animateSkillBars();
+}
+window.addEventListener('scroll', animateSections);
+navLinks.forEach(link => { link.addEventListener('click', e => { e.preventDefault(); document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth'}); }); });
+
+
+// Dark/light mode toggle
+const themeToggle = document.getElementById("theme-toggle");
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  themeToggle.textContent = document.body.classList.contains("light") ? "🌙" : "☀️";
+});
+
+
+// Hamburger toggle
+const hamburger = document.getElementById('hamburger');
+const navUl = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => { navUl.classList.toggle('show'); });
+
+// Typing effect
+const typingTexts = ["Web Developer","UI/UX Designer","Freelancer","Event Organizer"];
+let index=0; let charIndex=0; const typingElement=document.querySelector(".typing");
+function type(){ if(index>=typingTexts.length) index=0;
+  let txt=typingTexts[index];
+  typingElement.textContent=txt.slice(0,charIndex);
+  charIndex++;
+  if(charIndex>txt.length){ charIndex=0; index++; setTimeout(type,1000); return;}
+  setTimeout(type,150);
+}
+type();
+
+// Skill bar animation on scroll
+function animateSkillBars() {
+  document.querySelectorAll('.skill-bar span').forEach(bar => {
+    const section = bar.closest('.section');
+    if (section.classList.contains('show')) {
+      bar.style.width = bar.getAttribute('data-width');
+    } else {
+      bar.style.width = '0%';
+    }
+  });
+}
+</script>
+</body>
+</html>
